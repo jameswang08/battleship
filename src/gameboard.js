@@ -53,6 +53,17 @@ class GameBoard {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
+  // Generate random ship placements
+  generateCoords(len){
+    let xCord; let yCord; let direction;
+    do{
+      xCord = this.getRandomInt(0, this.size - 1);
+      yCord = this.getRandomInt(0, this.size - 1);
+      direction = this.getRandomInt(0, 3);
+    }while (!this.isValid(xCord, yCord, direction, len));
+    return [xCord, yCord, direction];
+  }
+
   // Check if all ships have been sunk
   isDefeated(){
     return this.allSunk;
@@ -73,10 +84,8 @@ class GameBoard {
       let dir = coords[i - 1][2];
 
       // If passed coordinate is invalid, generate a random coordinate until valid
-      while (!this.isValid(x, y, dir, i)) {
-        x = this.getRandomInt(0, this.size - 1);
-        y = this.getRandomInt(0, this.size - 1);
-        dir = this.getRandomInt(0, 3);
+      if(!this.isValid(x, y, dir, i)) {
+        [x,y,dir] = this.generateCoords(i);
       }
       // Update board array to contain ship
       for (let j = 0; j < i; j += 1) {
