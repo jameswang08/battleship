@@ -38,3 +38,26 @@ test('placeShips correctly adds ships to board array', () => {
         }
     ]);
 });
+
+test('Board properly updates when a ship is hit and notifies ship', () => {
+    gameBoard.receiveAttack(1,0);
+    expect(gameBoard.board[0][1]).toEqual("X");
+    expect(gameBoard.ships[1].hits).toBe(1);
+});
+
+test('Board properly updates when a ship is missed', () => {
+    gameBoard.receiveAttack(9,0);
+    expect(gameBoard.board[0][9]).toEqual("O");
+    expect(gameBoard.ships[1].hits).toBe(1);
+});
+
+test('Board reports when all ships have been sunk', () => {
+    const sunkBoard = new GameBoard();
+    sunkBoard.placeShips([0,0,1]);
+    sunkBoard.receiveAttack(0,0);
+
+    expect(sunkBoard.isDefeated()).toBe(true);
+});
+
+
+

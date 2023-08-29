@@ -8,6 +8,7 @@ const WEST = 3;
 
 class GameBoard {
   constructor(grid = 10) {
+    this.allSunk = false;
     this.size = grid;
     this.ships = [];
     this.board = [];
@@ -52,6 +53,11 @@ class GameBoard {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
+  // Check if all ships have been sunk
+  isDefeated(){
+    return this.allSunk;
+  }
+
   // Store ship object
   addShip(newShip) {
     this.ships.push(newShip);
@@ -93,6 +99,31 @@ class GameBoard {
       }
     }
   }
+
+  checkDefeat(){
+    // End game if all ships have been sunk
+    let gameEnd = true;
+    this.ships.forEach((ship) => {
+      if(!ship.isSunk()) gameEnd = false;
+    });
+    this.allSunk = gameEnd;
+  }
+
+  // Check if attack hit ship or not and call necessary function if so
+  receiveAttack(x, y){
+    // Miss
+    if(this.board[y][x]==='.'){
+      this.board[y][x]='O';
+    }
+    // Hit
+    else{
+      const shipIndex = this.board[y][x]-1;
+      this.ships[shipIndex].hit();
+      this.board[y][x]='X';
+      this.checkDefeat();
+    }
+  }
+
 }
 
 export default GameBoard;

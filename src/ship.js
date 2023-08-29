@@ -4,6 +4,10 @@ class Ship {
     this.hits = 0;
   }
 
+  getID(){
+    return this.tiles;
+  }
+
   hit() {
     this.hits += 1;
   }
