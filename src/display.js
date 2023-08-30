@@ -31,6 +31,7 @@ function display(pBoard){
             const tile = document.createElement('div');
             tile.classList.add('square');
             if(pBoard[j][i]==='X') tile.style.backgroundColor = 'red';
+            else if(pBoard[j][i]==='O') tile.style.backgroundColor = 'black';
             else if(pBoard[j][i]!=='.') tile.style.backgroundColor = 'gray';
             row.appendChild(tile);
         }
@@ -47,16 +48,26 @@ function displayEnemy(atkBoard, cb){
             const tile = document.createElement('div');
             tile.classList.add('square');
             tile.addEventListener('click', () => cb(i,j));
-            if(atkBoard[j][i]==='X') tile.innerText = 'X';
-            else if(atkBoard[j][i]!=='.') tile.innerText = '*';
+            if(atkBoard[j][i]==='X'){
+                tile.innerText = 'X';
+                tile.style.backgroundColor = 'red';
+            }
+            else if(atkBoard[j][i]!=='.'){
+                tile.innerText = '*';
+                tile.style.backgroundColor = 'white';
+            }
             row.appendChild(tile);
         }
         cpuBoard.appendChild(row);
     }
 }
 
-function gameOver(){
-
+function gameOver(winner){
+    while(cont.firstChild) cont.removeChild(cont.firstChild);
+    const end = document.createElement('div');
+    end.classList.add('end');
+    end.innerText = `You ${winner ? 'win!' : 'lose!'}`;
+    cont.appendChild(end);
 }
 
 export {intro, display, displayEnemy, gameOver};
