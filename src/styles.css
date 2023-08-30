@@ -9,6 +9,7 @@ html, body{
     justify-content: space-around;
     align-items: center;
     gap: 32px;
+    position: relative;
 }
 
 .board{
@@ -31,6 +32,12 @@ html, body{
     align-items: center;
     justify-content: center;
     background-color: lightblue;
+}
+
+#intro{
+    border: 1px solid black;
+    position: absolute;
+    top: 30%px;
 }
 
 .end{

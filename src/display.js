@@ -15,7 +15,17 @@ cont.appendChild(cpuBoard);
 document.querySelector('body').appendChild(cont);
 
 function intro(){
-
+    const msg = document.createElement('p');
+    msg.innerText = `Rules: You will be playing against a CPU. 
+    Your objective is to sink all of their ships before yours are all sunk. 
+    The board is a 10 by 10 grid. Both your and the CPU's ships will be randomly placed. 
+    You both have 5 ships, one of length 1, one of length 2, one of length 3, one of length 4, and one of length 5. 
+    Your board is on the left of the screen while the CPU's board is on the right. 
+    To attack a tile, click a tile on the enemy board to the right. 
+    A successful attack is indicated by a red tile. A miss is indicated by a white tile for you, and a black tile for the CPU. Your ships are represented by gray tiles. 
+    Click anywhere on this text once you are familiar with these rules.`;
+    msg.id = 'intro';
+    cont.appendChild(msg);
 }
 
 function resetBoard(element){

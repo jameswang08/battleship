@@ -25,14 +25,27 @@ const attackCB = (x, y) => {
     displayEnemy(p1.attacked, attackCB);
 };
 
+function waitForButtonPress() {
+    return new Promise(resolve => {
+      const button = document.getElementById('intro');
+  
+      button.addEventListener('click', () => {
+        button.remove();
+        resolve();
+      });
+    });
+  }
+
 function gameLoop(){
     intro();
-    // Add ships to player boards
-    p1.randomlyPlace();
-    cpu.randomlyPlace();
 
-    display(p1.playerBoard.board);
-    displayEnemy(p1.attacked, attackCB);
+    waitForButtonPress().then(() => {
+        p1.randomlyPlace();
+        cpu.randomlyPlace();
+    
+        display(p1.playerBoard.board);
+        displayEnemy(p1.attacked, attackCB);
+    });
 }
 
 export default gameLoop;
