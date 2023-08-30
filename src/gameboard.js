@@ -120,17 +120,21 @@ class GameBoard {
 
   // Check if attack hit ship or not and call necessary function if so
   receiveAttack(x, y){
+    // Return true on hit and false on miss
     // Miss
     if(this.board[y][x]==='.'){
       this.board[y][x]='O';
+      return 0;
     }
     // Hit
-    else{
+    if(this.board[y][x]!=='X'){
       const shipIndex = this.board[y][x]-1;
       this.ships[shipIndex].hit();
       this.board[y][x]='X';
       this.checkDefeat();
+      return 1;
     }
+    return -1;
   }
 
 }

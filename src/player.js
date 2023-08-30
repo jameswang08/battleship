@@ -4,7 +4,7 @@ class Player{
     constructor(){
         this.playerBoard = new GameBoard();
         this.attacked =  [];   
-        for (let i = 0; i < this.size; i += 1) {
+        for (let i = 0; i < 10; i += 1) {
             this.attacked.push(Array(10).fill("."));
         }
     }
@@ -17,6 +17,10 @@ class Player{
         this.playerBoard.placeShips(...coordinateArray);
     }
 
+    recordAttack(x,y, char){
+        this.attacked[y][x]=char;
+    }
+
     cpuAttack(){
         let x;
         let y;
@@ -24,7 +28,7 @@ class Player{
             x = Math.floor(Math.random() * 10);
             y = Math.floor(Math.random() * 10);
         }while(this.attacked[y][x]!=='.');
-        this.attacked[y][x]='X';
+        this.recordAttack(x,y, 'X');
         return [y,x];
     }
 
